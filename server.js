@@ -3,35 +3,34 @@ const http = require('http');
 const { Server } = require('socket.io');
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
+const server = http.createServer(app);  // Create an HTTP server
+const io = new Server(server, {         // Attach Socket.IO to the server
     cors: {
-        origin: "*", // Allow all origins for simplicity (you can restrict this)
+        origin: "*",    // Allow all origins (you can specify domains for security)
         methods: ["GET", "POST"]
     }
 });
 
-// Middleware to parse JSON bodies
+// Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Handle POST requests
+// POST endpoint to receive data and emit it to connected clients
 app.post('/emit-event', (req, res) => {
     const data = req.body;
 
-    // Emit the data to all connected clients via Socket.IO
+    // Emit data to all connected WebSocket clients
     io.emit('new_data', data);
 
-    // Send a response back to the client
+    // Send a success response
     res.status(200).json({ message: 'Data emitted successfully', data });
 });
 
-// Socket.IO connection handler
+// Handle WebSocket connections
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log('A user connected');
 
-    // Handle disconnection
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        console.log('User disconnected');
     });
 });
 
