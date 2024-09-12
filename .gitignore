@@ -18,10 +18,6 @@ pids
 # Environment variables
 .env
 
-# Docker files
-Dockerfile
-docker-compose.yml
-
 # macOS
 .DS_Store
 
