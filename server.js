@@ -17,7 +17,7 @@ app.use(express.json());
 // POST endpoint to receive data and emit it to connected clients
 app.post('/emit-event', (req, res) => {
     const data = req.body;
-
+    console.log("websocket hitedd", data)
     // Emit data to all connected WebSocket clients
     io.emit('new_data', data);
 
