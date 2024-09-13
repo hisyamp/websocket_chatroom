@@ -1,6 +1,7 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);  // Create an HTTP server
@@ -11,6 +12,7 @@ const io = new Server(server, {         // Attach Socket.IO to the server
     }
 });
 
+app.use(cors())
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
