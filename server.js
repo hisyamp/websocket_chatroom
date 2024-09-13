@@ -6,8 +6,7 @@ const app = express();
 const server = http.createServer(app);  // Create an HTTP server
 const io = new Server(server, {         // Attach Socket.IO to the server
     cors: {
-        origin: "*",    // Allow all origins (you can specify domains for security)
-        methods: ["GET", "POST"]
+        origin: ["*"],    // Allow all origins (you can specify domains for security)
     }
 });
 
